@@ -34,19 +34,15 @@ class IsarService {
     isar.writeTxn(() => isar.tasks.put(task));
   }
 
-  Future<void> editTaskTitle(Id id, String title) async {
+  Future<void> editTask(
+      {required Id id,
+      required String title,
+      required DateTime dateTime}) async {
     final isar = await db;
     final Task? task = await isar.tasks.get(id);
 
     task!.title = title;
-    isar.writeTxn(() => isar.tasks.put(task));
-  }
-
-  Future<void> editTaskDateTime(Id id, DateTime dateTime) async {
-    final isar = await db;
-    final Task? task = await isar.tasks.get(id);
-
-    task!.taskCreated = dateTime;
+    task.taskFor = dateTime;
     isar.writeTxn(() => isar.tasks.put(task));
   }
 

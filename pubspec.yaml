@@ -43,6 +43,8 @@ dependencies:
   path_provider: ^2.0.15
   date_format: ^2.0.7
   google_fonts: ^5.1.0
+  flutter_slidable: ^3.0.0
+  syncfusion_flutter_datepicker: ^22.1.37
   
 
 dev_dependencies:

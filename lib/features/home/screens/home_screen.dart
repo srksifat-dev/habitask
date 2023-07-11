@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:to_be_done/features/home/components/add_daily_task.dart';
 import 'package:to_be_done/features/home/components/add_habitual_task.dart';
+import 'package:to_be_done/features/home/components/edit_task.dart';
 import 'package:to_be_done/service/isar_service.dart';
 
+import '../../../models/task.dart';
 import '../components/app_heatmap.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   TextEditingController dailyTaskController = TextEditingController();
   TextEditingController habitualTaskController = TextEditingController();
+  TextEditingController taskEditingController = TextEditingController();
+
   final IsarService isarService = IsarService();
   bool isEmpty = true;
   bool hasDailyTask = false;
@@ -34,22 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 128,
         child: Column(
           children: [
-            addDailyTask(
-                context: context,
-                dailyTaskDate: dailyTaskDate,
-                dailyTaskController: dailyTaskController,
-                isEmpty: isEmpty,
-                isarService: isarService),
+            AddDailyTask(),
             SizedBox(
               height: 16,
             ),
-            addHabitualTask(
-              context: context,
-              habitualTaskDate: habitualTaskDate,
-              habitualTaskController: habitualTaskController,
-              isEmpty: isEmpty,
-              isarService: isarService,
-            ),
+            AddHabitualTask(),
           ],
         ),
       ),
@@ -102,27 +96,60 @@ class _HomeScreenState extends State<HomeScreen> {
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
-                              return Card(
-                                color: snapshot.data![index].taskType == "dt"
-                                    ? Theme.of(context).colorScheme.onPrimary
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .surfaceVariant,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16)),
-                                child: CheckboxListTile(
-                                  value: snapshot.data![index].isComplete,
-                                  onChanged: (value) {
-                                    isarService.editTaskStatus(
-                                        snapshot.data![index].id, value!);
-                                  },
-                                  title: Text(
-                                    snapshot.data![index].title,
-                                    style: TextStyle(
-                                      decoration:
-                                          snapshot.data![index].isComplete
-                                              ? TextDecoration.lineThrough
-                                              : TextDecoration.none,
+                              final Task task = snapshot.data![index];
+                              return Slidable(
+                                key: ValueKey(task.id),
+                                closeOnScroll: true,
+                                endActionPane: ActionPane(
+                                    extentRatio: 0.4,
+                                    motion: ScrollMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  EditTask(task: task));
+                                        },
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
+                                        icon: Icons.edit,
+                                        label: "Edit",
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          isarService.deleteTask(task.id);
+                                        },
+                                        backgroundColor:
+                                            Theme.of(context).colorScheme.error,
+                                        icon: Icons.delete,
+                                        label: "Delete",
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                    ]),
+                                child: Card(
+                                  color: task.taskType == "dt"
+                                      ? Theme.of(context).colorScheme.onPrimary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .surfaceVariant,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16)),
+                                  child: CheckboxListTile(
+                                    value: task.isComplete,
+                                    onChanged: (value) {
+                                      isarService.editTaskStatus(
+                                          snapshot.data![index].id, value!);
+                                    },
+                                    title: Text(
+                                      task.title,
+                                      style: TextStyle(
+                                        decoration: task.isComplete
+                                            ? TextDecoration.lineThrough
+                                            : TextDecoration.none,
+                                      ),
                                     ),
                                   ),
                                 ),
