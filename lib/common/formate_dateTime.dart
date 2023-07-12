@@ -14,7 +14,10 @@ class FormateDateTime {
   }
 
   static String getMonthNameFromMonthIndex({required int monthIndex}) {
-    
-    return formatDate(DateTime(DateTime.now().year,monthIndex), [MM]);
+    return formatDate(DateTime(DateTime.now().year, monthIndex), [MM]);
+  }
+
+  static DateTime onlyDate({required DateTime dateTime}) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 }

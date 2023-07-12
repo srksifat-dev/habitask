@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AppTextField extends StatelessWidget {
   AppTextField({
     super.key,
@@ -36,7 +37,7 @@ class AppTextField extends StatelessWidget {
         style: Theme.of(context).textTheme.bodySmall,
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: EdgeInsets.only(
+          contentPadding: const EdgeInsets.only(
             left: 16,
             bottom: 8,
           ),

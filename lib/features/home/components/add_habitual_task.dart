@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_be_done/service/isar_service.dart';
 
@@ -15,7 +14,7 @@ class AddHabitualTask extends StatefulWidget {
 
 class _AddHabitualTaskState extends State<AddHabitualTask> {
   TextEditingController taskController = TextEditingController();
-  DateTime taskFor = DateTime.now();
+  DateTime taskFor = FormateDateTime.onlyDate(dateTime: DateTime.now());
   bool isEmpty = false;
   IsarService isarService = IsarService();
   @override
@@ -29,11 +28,11 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Add Daily Task",
+                            "Add Habitual Task",
                             style: TextStyle(fontSize: 20),
                           ),
                           // TextButton.icon(
@@ -58,7 +57,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                       //     },
                       //   ),
                       // ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       AppTextField(
@@ -87,7 +86,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                                 Navigator.pop(context);
                                 taskFor = DateTime.now();
                               },
-                              child: Text("Cancel")),
+                              child: const Text("Cancel")),
                           Visibility(
                             visible: !isEmpty,
                             maintainAnimation: true,
@@ -101,9 +100,10 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                                     ..taskType = "ht");
                                   taskController.clear();
                                   Navigator.pop(context);
-                                  taskFor = DateTime.now();
+                                  taskFor = FormateDateTime.onlyDate(
+                                      dateTime: DateTime.now());
                                 },
-                                child: Text("Add")),
+                                child: const Text("Add")),
                           )
                         ],
                       )
@@ -111,7 +111,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                   ),
                 ));
       },
-      child: Stack(
+      child: const Stack(
         alignment: Alignment.center,
         children: [
           Icon(

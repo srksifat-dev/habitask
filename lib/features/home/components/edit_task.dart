@@ -36,7 +36,7 @@ class _EditTaskState extends State<EditTask> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Edit Task",
                 style: TextStyle(fontSize: 20),
               ),
@@ -44,7 +44,7 @@ class _EditTaskState extends State<EditTask> {
                   ? Container()
                   : TextButton.icon(
                       onPressed: () {},
-                      icon: Icon(Icons.calendar_month),
+                      icon: const Icon(Icons.calendar_month),
                       label:
                           Text(FormateDateTime.d2sWithoutHM(dateTime: taskFor)),
                     ),
@@ -61,12 +61,12 @@ class _EditTaskState extends State<EditTask> {
                     initialDateTime: taskFor,
                     onDateTimeChanged: (value) {
                       setState(() {
-                        taskFor = value;
+                        taskFor = FormateDateTime.onlyDate(dateTime: value);
                       });
                     },
                   ),
                 ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           AppTextField(
@@ -93,7 +93,7 @@ class _EditTaskState extends State<EditTask> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Cancel")),
+                  child: const Text("Cancel")),
               Visibility(
                 visible: !isEmpty,
                 maintainAnimation: true,
@@ -106,7 +106,7 @@ class _EditTaskState extends State<EditTask> {
                           dateTime: taskFor);
                       Navigator.pop(context);
                     },
-                    child: Text("Update")),
+                    child: const Text("Update")),
               )
             ],
           )

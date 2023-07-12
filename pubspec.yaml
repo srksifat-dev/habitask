@@ -45,6 +45,7 @@ dependencies:
   google_fonts: ^5.1.0
   flutter_slidable: ^3.0.0
   syncfusion_flutter_datepicker: ^22.1.37
+  get_storage: ^2.1.1
   
 
 dev_dependencies:

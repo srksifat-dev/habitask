@@ -15,12 +15,13 @@ class AddDailyTask extends StatefulWidget {
 
 class _AddDailyTaskState extends State<AddDailyTask> {
   TextEditingController taskController = TextEditingController();
-  DateTime taskFor = DateTime.now();
+  DateTime taskFor = FormateDateTime.onlyDate(dateTime: DateTime.now());
   bool isEmpty = false;
   IsarService isarService = IsarService();
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       onPressed: () {
         showDialog(
             context: context,
@@ -31,13 +32,13 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Add Daily Task",
                             style: TextStyle(fontSize: 20),
                           ),
                           TextButton.icon(
                             onPressed: () {},
-                            icon: Icon(Icons.calendar_month),
+                            icon: const Icon(Icons.calendar_month),
                             label: Text(FormateDateTime.d2sWithoutHM(
                                 dateTime: taskFor)),
                           ),
@@ -49,15 +50,17 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                         child: CupertinoDatePicker(
                           mode: CupertinoDatePickerMode.date,
                           dateOrder: DatePickerDateOrder.ymd,
-                          initialDateTime: DateTime.now(),
+                          initialDateTime: FormateDateTime.onlyDate(
+                              dateTime: DateTime.now()),
                           onDateTimeChanged: (value) {
                             setState(() {
-                              taskFor = value;
+                              taskFor =
+                                  FormateDateTime.onlyDate(dateTime: value);
                             });
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       AppTextField(
@@ -86,7 +89,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                 Navigator.pop(context);
                                 taskFor = DateTime.now();
                               },
-                              child: Text("Cancel")),
+                              child: const Text("Cancel")),
                           Visibility(
                             visible: !isEmpty,
                             maintainAnimation: true,
@@ -100,9 +103,10 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                     ..taskType = "dt");
                                   taskController.clear();
                                   Navigator.pop(context);
-                                  taskFor = DateTime.now();
+                                  taskFor = FormateDateTime.onlyDate(
+                                      dateTime: DateTime.now());
                                 },
-                                child: Text("Add")),
+                                child: const Text("Add")),
                           )
                         ],
                       )
@@ -113,8 +117,8 @@ class _AddDailyTaskState extends State<AddDailyTask> {
       child: Icon(
         Icons.done,
         size: 40,
+        color: Theme.of(context).colorScheme.onSecondary,
       ),
     );
   }
 }
-
