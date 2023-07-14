@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'everyday_data.dart';
+part of 'task_data.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,41 +9,41 @@ part of 'everyday_data.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetEverydayDataCollection on Isar {
-  IsarCollection<EverydayData> get everydayDatas => this.collection();
+extension GetTaskDataCollection on Isar {
+  IsarCollection<TaskData> get taskDatas => this.collection();
 }
 
-const EverydayDataSchema = CollectionSchema(
-  name: r'EverydayData',
-  id: 148223519511769276,
+const TaskDataSchema = CollectionSchema(
+  name: r'TaskData',
+  id: 6386124436821998370,
   properties: {
-    r'dateTime': PropertySchema(
+    r'completedPercentage': PropertySchema(
       id: 0,
-      name: r'dateTime',
-      type: IsarType.dateTime,
-    ),
-    r'percent': PropertySchema(
-      id: 1,
-      name: r'percent',
+      name: r'completedPercentage',
       type: IsarType.long,
+    ),
+    r'date': PropertySchema(
+      id: 1,
+      name: r'date',
+      type: IsarType.dateTime,
     )
   },
-  estimateSize: _everydayDataEstimateSize,
-  serialize: _everydayDataSerialize,
-  deserialize: _everydayDataDeserialize,
-  deserializeProp: _everydayDataDeserializeProp,
+  estimateSize: _taskDataEstimateSize,
+  serialize: _taskDataSerialize,
+  deserialize: _taskDataDeserialize,
+  deserializeProp: _taskDataDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _everydayDataGetId,
-  getLinks: _everydayDataGetLinks,
-  attach: _everydayDataAttach,
+  getId: _taskDataGetId,
+  getLinks: _taskDataGetLinks,
+  attach: _taskDataAttach,
   version: '3.1.0+1',
 );
 
-int _everydayDataEstimateSize(
-  EverydayData object,
+int _taskDataEstimateSize(
+  TaskData object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -51,30 +51,30 @@ int _everydayDataEstimateSize(
   return bytesCount;
 }
 
-void _everydayDataSerialize(
-  EverydayData object,
+void _taskDataSerialize(
+  TaskData object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.dateTime);
-  writer.writeLong(offsets[1], object.percent);
+  writer.writeLong(offsets[0], object.completedPercentage);
+  writer.writeDateTime(offsets[1], object.date);
 }
 
-EverydayData _everydayDataDeserialize(
+TaskData _taskDataDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = EverydayData();
-  object.dateTime = reader.readDateTime(offsets[0]);
+  final object = TaskData();
+  object.completedPercentage = reader.readLong(offsets[0]);
+  object.date = reader.readDateTime(offsets[1]);
   object.id = id;
-  object.percent = reader.readLong(offsets[1]);
   return object;
 }
 
-P _everydayDataDeserializeProp<P>(
+P _taskDataDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -82,39 +82,36 @@ P _everydayDataDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTime(offset)) as P;
-    case 1:
       return (reader.readLong(offset)) as P;
+    case 1:
+      return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-Id _everydayDataGetId(EverydayData object) {
+Id _taskDataGetId(TaskData object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _everydayDataGetLinks(EverydayData object) {
+List<IsarLinkBase<dynamic>> _taskDataGetLinks(TaskData object) {
   return [];
 }
 
-void _everydayDataAttach(
-    IsarCollection<dynamic> col, Id id, EverydayData object) {
+void _taskDataAttach(IsarCollection<dynamic> col, Id id, TaskData object) {
   object.id = id;
 }
 
-extension EverydayDataQueryWhereSort
-    on QueryBuilder<EverydayData, EverydayData, QWhere> {
-  QueryBuilder<EverydayData, EverydayData, QAfterWhere> anyId() {
+extension TaskDataQueryWhereSort on QueryBuilder<TaskData, TaskData, QWhere> {
+  QueryBuilder<TaskData, TaskData, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension EverydayDataQueryWhere
-    on QueryBuilder<EverydayData, EverydayData, QWhereClause> {
-  QueryBuilder<EverydayData, EverydayData, QAfterWhereClause> idEqualTo(Id id) {
+extension TaskDataQueryWhere on QueryBuilder<TaskData, TaskData, QWhereClause> {
+  QueryBuilder<TaskData, TaskData, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -123,8 +120,7 @@ extension EverydayDataQueryWhere
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterWhereClause> idNotEqualTo(
-      Id id) {
+  QueryBuilder<TaskData, TaskData, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -146,8 +142,7 @@ extension EverydayDataQueryWhere
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterWhereClause> idGreaterThan(
-      Id id,
+  QueryBuilder<TaskData, TaskData, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -156,7 +151,7 @@ extension EverydayDataQueryWhere
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<TaskData, TaskData, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -165,7 +160,7 @@ extension EverydayDataQueryWhere
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterWhereClause> idBetween(
+  QueryBuilder<TaskData, TaskData, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -182,56 +177,56 @@ extension EverydayDataQueryWhere
   }
 }
 
-extension EverydayDataQueryFilter
-    on QueryBuilder<EverydayData, EverydayData, QFilterCondition> {
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      dateTimeEqualTo(DateTime value) {
+extension TaskDataQueryFilter
+    on QueryBuilder<TaskData, TaskData, QFilterCondition> {
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition>
+      completedPercentageEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'dateTime',
+        property: r'completedPercentage',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      dateTimeGreaterThan(
-    DateTime value, {
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition>
+      completedPercentageGreaterThan(
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'dateTime',
+        property: r'completedPercentage',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      dateTimeLessThan(
-    DateTime value, {
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition>
+      completedPercentageLessThan(
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'dateTime',
+        property: r'completedPercentage',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      dateTimeBetween(
-    DateTime lower,
-    DateTime upper, {
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition>
+      completedPercentageBetween(
+    int lower,
+    int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'dateTime',
+        property: r'completedPercentage',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -240,8 +235,60 @@ extension EverydayDataQueryFilter
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition> idEqualTo(
-      Id value) {
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> dateEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'date',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> dateGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'date',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> dateLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'date',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> dateBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'date',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -250,7 +297,7 @@ extension EverydayDataQueryFilter
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -263,7 +310,7 @@ extension EverydayDataQueryFilter
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition> idLessThan(
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -276,7 +323,7 @@ extension EverydayDataQueryFilter
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition> idBetween(
+  QueryBuilder<TaskData, TaskData, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -292,168 +339,113 @@ extension EverydayDataQueryFilter
       ));
     });
   }
+}
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      percentEqualTo(int value) {
+extension TaskDataQueryObject
+    on QueryBuilder<TaskData, TaskData, QFilterCondition> {}
+
+extension TaskDataQueryLinks
+    on QueryBuilder<TaskData, TaskData, QFilterCondition> {}
+
+extension TaskDataQuerySortBy on QueryBuilder<TaskData, TaskData, QSortBy> {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> sortByCompletedPercentage() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'percent',
-        value: value,
-      ));
+      return query.addSortBy(r'completedPercentage', Sort.asc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      percentGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy>
+      sortByCompletedPercentageDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'percent',
-        value: value,
-      ));
+      return query.addSortBy(r'completedPercentage', Sort.desc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      percentLessThan(
-    int value, {
-    bool include = false,
-  }) {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> sortByDate() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'percent',
-        value: value,
-      ));
+      return query.addSortBy(r'date', Sort.asc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterFilterCondition>
-      percentBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> sortByDateDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'percent',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addSortBy(r'date', Sort.desc);
     });
   }
 }
 
-extension EverydayDataQueryObject
-    on QueryBuilder<EverydayData, EverydayData, QFilterCondition> {}
-
-extension EverydayDataQueryLinks
-    on QueryBuilder<EverydayData, EverydayData, QFilterCondition> {}
-
-extension EverydayDataQuerySortBy
-    on QueryBuilder<EverydayData, EverydayData, QSortBy> {
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> sortByDateTime() {
+extension TaskDataQuerySortThenBy
+    on QueryBuilder<TaskData, TaskData, QSortThenBy> {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> thenByCompletedPercentage() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.asc);
+      return query.addSortBy(r'completedPercentage', Sort.asc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> sortByDateTimeDesc() {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy>
+      thenByCompletedPercentageDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.desc);
+      return query.addSortBy(r'completedPercentage', Sort.desc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> sortByPercent() {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> thenByDate() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'percent', Sort.asc);
+      return query.addSortBy(r'date', Sort.asc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> sortByPercentDesc() {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> thenByDateDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'percent', Sort.desc);
-    });
-  }
-}
-
-extension EverydayDataQuerySortThenBy
-    on QueryBuilder<EverydayData, EverydayData, QSortThenBy> {
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> thenByDateTime() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.asc);
+      return query.addSortBy(r'date', Sort.desc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> thenByDateTimeDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'dateTime', Sort.desc);
-    });
-  }
-
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> thenById() {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<TaskData, TaskData, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
+}
 
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> thenByPercent() {
+extension TaskDataQueryWhereDistinct
+    on QueryBuilder<TaskData, TaskData, QDistinct> {
+  QueryBuilder<TaskData, TaskData, QDistinct> distinctByCompletedPercentage() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'percent', Sort.asc);
+      return query.addDistinctBy(r'completedPercentage');
     });
   }
 
-  QueryBuilder<EverydayData, EverydayData, QAfterSortBy> thenByPercentDesc() {
+  QueryBuilder<TaskData, TaskData, QDistinct> distinctByDate() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'percent', Sort.desc);
+      return query.addDistinctBy(r'date');
     });
   }
 }
 
-extension EverydayDataQueryWhereDistinct
-    on QueryBuilder<EverydayData, EverydayData, QDistinct> {
-  QueryBuilder<EverydayData, EverydayData, QDistinct> distinctByDateTime() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'dateTime');
-    });
-  }
-
-  QueryBuilder<EverydayData, EverydayData, QDistinct> distinctByPercent() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'percent');
-    });
-  }
-}
-
-extension EverydayDataQueryProperty
-    on QueryBuilder<EverydayData, EverydayData, QQueryProperty> {
-  QueryBuilder<EverydayData, int, QQueryOperations> idProperty() {
+extension TaskDataQueryProperty
+    on QueryBuilder<TaskData, TaskData, QQueryProperty> {
+  QueryBuilder<TaskData, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<EverydayData, DateTime, QQueryOperations> dateTimeProperty() {
+  QueryBuilder<TaskData, int, QQueryOperations> completedPercentageProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'dateTime');
+      return query.addPropertyName(r'completedPercentage');
     });
   }
 
-  QueryBuilder<EverydayData, int, QQueryOperations> percentProperty() {
+  QueryBuilder<TaskData, DateTime, QQueryOperations> dateProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'percent');
+      return query.addPropertyName(r'date');
     });
   }
 }

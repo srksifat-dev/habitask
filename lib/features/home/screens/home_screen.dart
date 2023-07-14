@@ -6,12 +6,12 @@ import 'package:to_be_done/common/formate_dateTime.dart';
 import 'package:to_be_done/features/home/components/add_daily_task.dart';
 import 'package:to_be_done/features/home/components/add_habitual_task.dart';
 import 'package:to_be_done/features/home/components/edit_task.dart';
+import 'package:to_be_done/models/task_data.dart';
 import 'package:to_be_done/service/isar_service.dart';
 
-import '../../../models/everyday_data.dart';
 import '../../../models/task.dart';
 
-DateTime firstday = DateTime.now();
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -77,15 +77,15 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             StreamBuilder(
-                stream: isarService.allDataStream(),
+                stream: isarService.taskDataStream(),
                 builder: (context, snapshot) {
                   Map<DateTime, int> resultList = {};
                   if (snapshot.hasData) {
-                    List<EverydayData> datas = snapshot.data!;
+                    List<TaskData> datas = snapshot.data!;
 
                     for (int i = 0; i < datas.length; i++) {
                       Map<DateTime, int> item = {
-                        datas[i].dateTime: datas[i].percent
+                        datas[i].date: datas[i].completedPercentage
                       };
                       resultList.addEntries(item.entries);
                     }
@@ -93,23 +93,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   return snapshot.hasData
                       ? HeatMap(
-                          colorsets: const {
-                            0: Color.fromARGB(0, 2, 179, 8),
-                            1: Color.fromARGB(20, 2, 179, 8),
-                            2: Color.fromARGB(40, 2, 179, 8),
-                            3: Color.fromARGB(60, 2, 179, 8),
-                            4: Color.fromARGB(80, 2, 179, 8),
-                            5: Color.fromARGB(100, 2, 179, 8),
-                            6: Color.fromARGB(120, 2, 179, 8),
-                            7: Color.fromARGB(150, 2, 179, 8),
-                            8: Color.fromARGB(180, 2, 179, 8),
-                            9: Color.fromARGB(220, 2, 179, 8),
-                            10: Color.fromARGB(255, 2, 179, 8),
-                          },
+                          colorsets: Theme.of(context).brightness == Brightness.dark
+                                  ? const {
+                                      1: Color.fromARGB(20, 57, 211, 83),
+                                      2: Color.fromARGB(40, 57, 211, 83),
+                                      3: Color.fromARGB(60, 57, 211, 83),
+                                      4: Color.fromARGB(80, 57, 211, 83),
+                                      5: Color.fromARGB(100, 57, 211, 83),
+                                      6: Color.fromARGB(120, 57, 211, 83),
+                                      7: Color.fromARGB(150, 57, 211, 83),
+                                      8: Color.fromARGB(180, 57, 211, 83),
+                                      9: Color.fromARGB(220, 57, 211, 83),
+                                      10: Color.fromARGB(255, 57, 211, 83),
+                                    }
+                                  : const {
+                                      1: Color.fromARGB(20, 33, 110, 57),
+                                      2: Color.fromARGB(40, 33, 110, 57),
+                                      3: Color.fromARGB(60, 33, 110, 57),
+                                      4: Color.fromARGB(80, 33, 110, 57),
+                                      5: Color.fromARGB(100, 33, 110, 57),
+                                      6: Color.fromARGB(120, 33, 110, 57),
+                                      7: Color.fromARGB(150, 33, 110, 57),
+                                      8: Color.fromARGB(180, 33, 110, 57),
+                                      9: Color.fromARGB(220, 33, 110, 57),
+                                      10: Color.fromARGB(255, 33, 110, 57),
+                                    },
                           showColorTip: false,
                           colorMode: ColorMode.color,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate: firstday,
+                          startDate: GetStorage().read("firstDay"),
                           datasets: resultList,
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
@@ -123,23 +135,36 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 24,
                         )
                       : HeatMap(
-                          colorsets: const {
-                            0: Color.fromARGB(0, 2, 179, 8),
-                            1: Color.fromARGB(20, 2, 179, 8),
-                            2: Color.fromARGB(40, 2, 179, 8),
-                            3: Color.fromARGB(60, 2, 179, 8),
-                            4: Color.fromARGB(80, 2, 179, 8),
-                            5: Color.fromARGB(100, 2, 179, 8),
-                            6: Color.fromARGB(120, 2, 179, 8),
-                            7: Color.fromARGB(150, 2, 179, 8),
-                            8: Color.fromARGB(180, 2, 179, 8),
-                            9: Color.fromARGB(220, 2, 179, 8),
-                            10: Color.fromARGB(255, 2, 179, 8),
-                          },
+                          colorsets:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? const {
+                                      1: Color.fromARGB(20, 57, 211, 83),
+                                      2: Color.fromARGB(40, 57, 211, 83),
+                                      3: Color.fromARGB(60, 57, 211, 83),
+                                      4: Color.fromARGB(80, 57, 211, 83),
+                                      5: Color.fromARGB(100, 57, 211, 83),
+                                      6: Color.fromARGB(120, 57, 211, 83),
+                                      7: Color.fromARGB(150, 57, 211, 83),
+                                      8: Color.fromARGB(180, 57, 211, 83),
+                                      9: Color.fromARGB(220, 57, 211, 83),
+                                      10: Color.fromARGB(255, 57, 211, 83),
+                                    }
+                                  : const {
+                                      1: Color.fromARGB(20, 33, 110, 57),
+                                      2: Color.fromARGB(40, 33, 110, 57),
+                                      3: Color.fromARGB(60, 33, 110, 57),
+                                      4: Color.fromARGB(80, 33, 110, 57),
+                                      5: Color.fromARGB(100, 33, 110, 57),
+                                      6: Color.fromARGB(120, 33, 110, 57),
+                                      7: Color.fromARGB(150, 33, 110, 57),
+                                      8: Color.fromARGB(180, 33, 110, 57),
+                                      9: Color.fromARGB(220, 33, 110, 57),
+                                      10: Color.fromARGB(255, 33, 110, 57),
+                                    },
                           colorMode: ColorMode.color,
                           showColorTip: false,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate: firstday,
+                          startDate: GetStorage().read("firstDay"),
                           datasets: {},
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
@@ -174,15 +199,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     StreamBuilder(
-                        stream: isarService.todayDataStream(
+                        stream: isarService.taskStream(
                             FormateDateTime.onlyDate(dateTime: DateTime.now())),
                         builder: (context, snapshot) {
+                          allTasks = snapshot.hasData ? snapshot.data! : [];
+                          completedTasks = snapshot.hasData
+                              ? allTasks
+                                  .where(
+                                      (element) => element.isComplete == true)
+                                  .toList()
+                              : [];
+                          percent = snapshot.hasData
+                              ? completedTasks.length * 10 ~/ allTasks.length
+                              : 0;
+                          if (snapshot.hasData) {
+                            isarService.updateTaskData(
+                                FormateDateTime.onlyDate(
+                                    dateTime: DateTime.now()),
+                                percent);
+                          }
+                          print(percent);
                           return snapshot.hasData
                               ? Container(
                                   height: 5,
                                   width: ((MediaQuery.of(context).size.width *
                                               0.65) *
-                                          snapshot.data![0].percent) /
+                                          percent) /
                                       10,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
@@ -236,10 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       SlidableAction(
                                         onPressed: (context) {
-                                          isarService.deletePreviousTask(
-                                              task.id,
-                                              FormateDateTime.onlyDate(
-                                                  dateTime: DateTime.now()));
+                                          isarService
+                                              .deletePreviousTask(task.id);
                                         },
                                         backgroundColor:
                                             Theme.of(context).colorScheme.error,

@@ -9,5 +9,4 @@ class Task {
   late String title;
   late bool isComplete;
   late String taskType;
-
 }

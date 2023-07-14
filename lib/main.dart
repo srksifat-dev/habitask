@@ -1,7 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:to_be_done/features/home/screens/home_screen.dart';
 import 'package:to_be_done/router/router.dart';
 import 'package:to_be_done/service/isar_service.dart';
 import 'package:to_be_done/theme/app_theme.dart';
@@ -16,7 +15,7 @@ Future<void> main() async {
   await GetStorage.init();
   installed = GetStorage().read("installed");
   if (installed == null) {
-    firstday = FormateDateTime.onlyDate(dateTime: DateTime.now());
+    GetStorage().write("firstDay", DateTime.now());
     await isarService.addTask(Task()
       ..isComplete = true
       ..taskFor = FormateDateTime.onlyDate(dateTime: DateTime.now())
