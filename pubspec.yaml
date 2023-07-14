@@ -46,6 +46,7 @@ dependencies:
   flutter_slidable: ^3.0.0
   syncfusion_flutter_datepicker: ^22.1.37
   get_storage: ^2.1.1
+  intl: ^0.18.1
   
 
 dev_dependencies:

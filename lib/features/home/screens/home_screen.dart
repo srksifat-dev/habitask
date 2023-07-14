@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           showColorTip: false,
                           colorMode: ColorMode.color,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate: GetStorage().read("firstDay"),
+                          startDate: DateTime.parse(GetStorage().read("firstDay")),
                           datasets: resultList,
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
@@ -164,8 +164,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           colorMode: ColorMode.color,
                           showColorTip: false,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate: GetStorage().read("firstDay"),
-                          datasets: {},
+                          startDate: DateTime.parse(GetStorage().read("firstDay")),
+                          datasets: const{},
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
                           onClick: (value) {
