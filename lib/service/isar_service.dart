@@ -58,19 +58,18 @@ class IsarService {
     final isar = await db;
     var allHabitualTasks = await getAllHabitualTask();
     if (allHabitualTasks.isNotEmpty && allHabitualTasks.first.taskFor != date) {
-      if(await getTaskData(date) == null){
+      if (await getTaskData(date) == null) {
         addTaskData(TaskData()
           ..date = date
           ..completedPercentage = 0);
       }
-      
-          for (Task task in allHabitualTasks) {
+
+      for (Task task in allHabitualTasks) {
         task.taskFor = date;
         if (task.isComplete == true) {
           task.isComplete = false;
         }
         isar.writeTxn(() => isar.tasks.put(task));
-        
       }
     }
   }
@@ -80,14 +79,14 @@ class IsarService {
     var previousDayDailyTasks =
         await getDailyTaskFor(date.subtract(const Duration(days: 1)));
     if (previousDayDailyTasks.isNotEmpty) {
-      if(await getTaskData(date) == null){
+      if (await getTaskData(date) == null) {
         addTaskData(TaskData()
           ..date = date
           ..completedPercentage = 0);
       }
       for (Task task in previousDayDailyTasks) {
         if (task.isComplete == true) {
-          await deletePreviousTask(task.id);
+          await deleteTask(task.id);
         } else {
           task.taskFor = date;
           isar.writeTxn(() => isar.tasks.put(task));
@@ -96,27 +95,10 @@ class IsarService {
     }
   }
 
-  Future<List<Task>> getAllTask() async {
-    final isar = await db;
-    var tasks = await isar.tasks.where().findAll();
-    return tasks;
-  }
-
   Future<List<Task>> getAllHabitualTask() async {
     final isar = await db;
     var tasks = await isar.tasks.filter().taskTypeEqualTo("ht").findAll();
     return tasks;
-  }
-
-  Future<List<Task>> getAllDailyTask() async {
-    final isar = await db;
-    var tasks = await isar.tasks.filter().taskTypeEqualTo("dt").findAll();
-    return tasks;
-  }
-
-  Future<List<Task>> getAllCompletedTask() async {
-    final isar = await db;
-    return await isar.tasks.filter().isCompleteEqualTo(true).findAll();
   }
 
   Future<List<Task>> getTaskFor(DateTime date) async {
@@ -142,20 +124,7 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
-  Stream<List<Task>> completedTaskLengthStream() async* {
-    final isar = await db;
-    yield* isar.tasks
-        .filter()
-        .isCompleteEqualTo(true)
-        .watch(fireImmediately: true);
-  }
-
-  Future<List<Task>> getCompletedTaskFor(DateTime date) async {
-    final isar = await db;
-    return await isar.tasks.filter().isCompleteEqualTo(true).findAll();
-  }
-
-  Future<void> deletePreviousTask(Id id) async {
+  Future<void> deleteTask(Id id) async {
     final isar = await db;
     var task = await isar.tasks.get(id);
     var allTasks = await getTaskFor(task!.taskFor);
@@ -167,12 +136,6 @@ class IsarService {
           title: "You have to be productive! Come onnn...",
           dateTime: FormateDateTime.onlyDate(dateTime: DateTime.now()));
     }
-  }
-
-  Future<void> deleteTask(Id id) async {
-    final isar = await db;
-    await isar.writeTxn(() => isar.tasks.delete(id));
-    await getAllTask();
   }
 
   Future<void> addTaskData(TaskData data) async {

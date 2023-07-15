@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,8 +12,6 @@ import 'package:to_be_done/service/isar_service.dart';
 
 import '../../../models/task.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -21,21 +20,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  DateTime dailyTaskDate = DateTime.now();
-  DateTime habitualTaskDate = DateTime.now();
-
-  TextEditingController dailyTaskController = TextEditingController();
-  TextEditingController habitualTaskController = TextEditingController();
-  TextEditingController taskEditingController = TextEditingController();
   String appBarDate = FormateDateTime.d2sWithoutHM(dateTime: DateTime.now());
   final IsarService isarService = IsarService();
-  bool isEmpty = true;
-  bool hasDailyTask = false;
 
   List<Task> allTasks = [];
   List<Task> completedTasks = [];
   int percent = 0;
+
+  bool isFabVisible = true;
 
   @override
   void initState() {
@@ -60,20 +52,27 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      floatingActionButton: const SizedBox(
-        height: 128,
+      floatingActionButton: SizedBox(
+        height: 130,
         child: Column(
           children: [
-            AddDailyTask(),
-            SizedBox(
+            AddDailyTask(
+              isVisible: isFabVisible,
+            ),
+            const SizedBox(
               height: 16,
             ),
-            AddHabitualTask(),
+            AddHabitualTask(
+              isVisible: isFabVisible,
+            ),
           ],
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(
+          left: 16.0,
+          right: 16,
+        ),
         child: Column(
           children: [
             StreamBuilder(
@@ -93,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   return snapshot.hasData
                       ? HeatMap(
-                          colorsets: Theme.of(context).brightness == Brightness.dark
+                          colorsets:
+                              Theme.of(context).brightness == Brightness.dark
                                   ? const {
                                       1: Color.fromARGB(20, 57, 211, 83),
                                       2: Color.fromARGB(40, 57, 211, 83),
@@ -121,7 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           showColorTip: false,
                           colorMode: ColorMode.color,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate: DateTime.parse(GetStorage().read("firstDay")),
+                          startDate:
+                              DateTime.parse(GetStorage().read("firstDay")),
                           datasets: resultList,
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
@@ -164,8 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           colorMode: ColorMode.color,
                           showColorTip: false,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate: DateTime.parse(GetStorage().read("firstDay")),
-                          datasets: const{},
+                          startDate:
+                              DateTime.parse(GetStorage().read("firstDay")),
+                          datasets: const {},
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
                           onClick: (value) {
@@ -218,7 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     dateTime: DateTime.now()),
                                 percent);
                           }
-                          print(percent);
                           return snapshot.hasData
                               ? Container(
                                   height: 5,
@@ -248,106 +249,132 @@ class _HomeScreenState extends State<HomeScreen> {
                       FormateDateTime.onlyDate(dateTime: DateTime.now())),
                   builder: (context, snapshot) {
                     return snapshot.hasData
-                        ? ListView.builder(
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              final Task task = snapshot.data![index];
-                              return Slidable(
-                                key: ValueKey(task.id),
-                                closeOnScroll: true,
-                                endActionPane: ActionPane(
-                                    extentRatio: 0.4,
-                                    motion: const ScrollMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        onPressed: (context) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  EditTask(task: task));
-                                        },
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground,
-                                        icon: Icons.edit,
-                                        label: "Edit",
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      SlidableAction(
-                                        onPressed: (context) {
-                                          isarService
-                                              .deletePreviousTask(task.id);
-                                        },
-                                        backgroundColor:
-                                            Theme.of(context).colorScheme.error,
-                                        icon: Icons.delete,
-                                        label: "Delete",
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                    ]),
-                                child: Card(
-                                  color: task.taskType == "dt"
-                                      ? Theme.of(context).colorScheme.secondary
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .surfaceVariant,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                                  child: CheckboxListTile(
-                                    checkColor: task.taskType == "dt"
-                                        ? Theme.of(context)
-                                            .colorScheme
-                                            .secondary
-                                        : Theme.of(context)
-                                            .colorScheme
-                                            .surfaceVariant,
-                                    fillColor: task.taskType == "dt"
-                                        ? MaterialStatePropertyAll(
-                                            Theme.of(context)
+                        ? NotificationListener<UserScrollNotification>(
+                            onNotification: (notification) {
+                              if (notification.direction ==
+                                  ScrollDirection.forward) {
+                                if (!isFabVisible) {
+                                  setState(() {
+                                    isFabVisible = true;
+                                  });
+                                }
+                              } else if (notification.direction ==
+                                  ScrollDirection.reverse) {
+                                if (isFabVisible) {
+                                  setState(() {
+                                    isFabVisible = false;
+                                  });
+                                }
+                              }
+                              return true;
+                            },
+                            child: ListView.builder(
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, index) {
+                                  final Task task = snapshot.data![index];
+                                  return Slidable(
+                                    key: ValueKey(task.id),
+                                    closeOnScroll: true,
+                                    endActionPane: ActionPane(
+                                        extentRatio: 0.4,
+                                        motion: const ScrollMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (context) {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      EditTask(task: task));
+                                            },
+                                            backgroundColor: Theme.of(context)
                                                 .colorScheme
-                                                .onSecondary)
-                                        : MaterialStatePropertyAll(
-                                            Theme.of(context)
+                                                .onBackground,
+                                            icon: Icons.edit,
+                                            label: "Edit",
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          const SizedBox(
+                                            width: 4,
+                                          ),
+                                          SlidableAction(
+                                            onPressed: (context) {
+                                              isarService.deleteTask(task.id);
+                                            },
+                                            backgroundColor: Theme.of(context)
                                                 .colorScheme
-                                                .onSurfaceVariant),
-                                    value: task.isComplete,
-                                    onChanged: (value) async {
-                                      await isarService.editTaskStatus(
-                                          task.id, value!);
-                                    },
-                                    title: Text(
-                                      task.title,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: task.isComplete
-                                            ? FontWeight.normal
-                                            : FontWeight.bold,
-                                        color: task.taskType == "dt"
+                                                .error,
+                                            icon: Icons.delete,
+                                            label: "Delete",
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                        ]),
+                                    child: Card(
+                                      color: task.taskType == "dt"
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .secondary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .surfaceVariant,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      child: CheckboxListTile(
+                                        checkColor: task.taskType == "dt"
                                             ? Theme.of(context)
                                                 .colorScheme
-                                                .onSecondary
+                                                .secondary
                                             : Theme.of(context)
                                                 .colorScheme
-                                                .onSurfaceVariant,
-                                        decoration: task.isComplete
-                                            ? TextDecoration.lineThrough
-                                            : TextDecoration.none,
-                                        decorationColor: task.taskType == "dt"
-                                            ? Theme.of(context)
-                                                .colorScheme
-                                                .onSecondary
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .onSurfaceVariant,
+                                                .surfaceVariant,
+                                        fillColor: task.taskType == "dt"
+                                            ? MaterialStatePropertyAll(
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondary)
+                                            : MaterialStatePropertyAll(
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurfaceVariant),
+                                        value: task.isComplete,
+                                        onChanged: (value) async {
+                                          await isarService.editTaskStatus(
+                                              task.id, value!);
+                                        },
+                                        title: Text(
+                                          task.title,
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: task.isComplete
+                                                ? FontWeight.normal
+                                                : FontWeight.bold,
+                                            color: task.taskType == "dt"
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondary
+                                                : Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurfaceVariant,
+                                            decoration: task.isComplete
+                                                ? TextDecoration.lineThrough
+                                                : TextDecoration.none,
+                                            decorationColor:
+                                                task.taskType == "dt"
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSurfaceVariant,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            })
+                                  );
+                                }),
+                          )
                         : Container();
                   }),
             ),
