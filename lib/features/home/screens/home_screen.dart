@@ -121,8 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           showColorTip: false,
                           colorMode: ColorMode.color,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate:
-                              DateTime.parse(GetStorage().read("firstDay")),
+                          
                           datasets: resultList,
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,

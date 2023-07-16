@@ -15,7 +15,6 @@ Future<void> main() async {
   await GetStorage.init();
   installed = GetStorage().read("installed");
   if (installed == null) {
-    GetStorage().write("firstDay", DateTime.now().toString());
     await isarService.addTask(Task()
       ..isComplete = true
       ..taskFor = FormateDateTime.onlyDate(dateTime: DateTime.now())
