@@ -86,7 +86,7 @@ class IsarService {
       }
       for (Task task in previousDayDailyTasks) {
         if (task.isComplete == true) {
-          await deleteTask(task.id);
+          await deleteTask(task.id,date);
         } else {
           task.taskFor = date;
           isar.writeTxn(() => isar.tasks.put(task));
@@ -124,10 +124,9 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
-  Future<void> deleteTask(Id id) async {
+  Future<void> deleteTask(Id id,DateTime date) async {
     final isar = await db;
-    var task = await isar.tasks.get(id);
-    var allTasks = await getTaskFor(task!.taskFor);
+    var allTasks = await getTaskFor(date);
     if (allTasks.length > 1) {
       await isar.writeTxn(() => isar.tasks.delete(id));
     } else {

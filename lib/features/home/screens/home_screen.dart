@@ -298,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           SlidableAction(
                                             onPressed: (context) {
-                                              isarService.deleteTask(task.id);
+                                              isarService.deleteTask(task.id, FormateDateTime.onlyDate(dateTime: DateTime.now()));
                                             },
                                             backgroundColor: Theme.of(context)
                                                 .colorScheme
