@@ -25,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Task> allTasks = [];
   List<Task> completedTasks = [];
-  double percent = 0;
+  int percent = 0;
+  double percentForIndicator = 0.0;
 
   bool isFabVisible = true;
 
@@ -121,7 +122,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           showColorTip: false,
                           colorMode: ColorMode.color,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          
                           datasets: resultList,
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
@@ -193,27 +193,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       allTasks = snapshot.hasData ? snapshot.data! : [];
                       completedTasks = snapshot.hasData
                           ? allTasks
-                              .where(
-                                  (element) => element.isComplete == true)
+                              .where((element) => element.isComplete == true)
                               .toList()
                           : [];
-                      percent = snapshot.hasData
-                          ? (completedTasks.length * 10) / allTasks.length
+                      percentForIndicator = snapshot.hasData
+                          ? completedTasks.length / allTasks.length
                           : 0.0;
+                      percent = snapshot.hasData
+                          ? (completedTasks.length * 10) ~/ allTasks.length
+                          : 0;
                       if (snapshot.hasData) {
                         isarService.updateTaskData(
-                            FormateDateTime.onlyDate(
-                                dateTime: DateTime.now()),
-                            percent.toInt());
+                            FormateDateTime.onlyDate(dateTime: DateTime.now()),
+                            percent);
                       }
                       return snapshot.hasData
                           ? Expanded(
-                            child: LinearProgressIndicator(
-                              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-                              color: Theme.of(context).colorScheme.onBackground,
-                              value: percent,
-                            ),
-                          )
+                              child: LinearProgressIndicator(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceVariant,
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                value: percentForIndicator,
+                              ),
+                            )
                           : Container();
                     })
               ],
@@ -277,7 +281,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           SlidableAction(
                                             onPressed: (context) {
-                                              isarService.deleteTask(task.id, FormateDateTime.onlyDate(dateTime: DateTime.now()));
+                                              isarService.deleteTask(
+                                                  task.id,
+                                                  FormateDateTime.onlyDate(
+                                                      dateTime:
+                                                          DateTime.now()));
                                             },
                                             backgroundColor: Theme.of(context)
                                                 .colorScheme

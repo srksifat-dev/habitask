@@ -72,17 +72,20 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                           textCapitalization: TextCapitalization.sentences,
                           textInputType: TextInputType.text,
                           hintText: "Enter your task",
-                          onChanged: (value) {
-                            if (value.isEmpty) {
-                              setState(() {
-                                isEmpty = true;
-                              });
-                            } else {
-                              setState(() {
-                                isEmpty = false;
-                              });
-                            }
+                          onSubmitted: (_) {
+                            taskController.text.length > 1
+                                ? isarService.addTask(Task()
+                                  ..isComplete = false
+                                  ..taskFor = taskFor
+                                  ..title = taskController.text
+                                  ..taskType = "dt")
+                                : null;
+                            taskController.clear();
+                            Navigator.pop(context);
+                            taskFor = FormateDateTime.onlyDate(
+                                dateTime: DateTime.now());
                           },
+                          autoFocus: true,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -94,24 +97,21 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                   taskFor = DateTime.now();
                                 },
                                 child: const Text("Cancel")),
-                            Visibility(
-                              visible: !isEmpty,
-                              maintainAnimation: true,
-                              maintainState: true,
-                              child: FilledButton(
-                                  onPressed: () {
-                                    isarService.addTask(Task()
-                                      ..isComplete = false
-                                      ..taskFor = taskFor
-                                      ..title = taskController.text
-                                      ..taskType = "dt");
-                                    taskController.clear();
-                                    Navigator.pop(context);
-                                    taskFor = FormateDateTime.onlyDate(
-                                        dateTime: DateTime.now());
-                                  },
-                                  child: const Text("Add")),
-                            )
+                            FilledButton(
+                                onPressed: () {
+                                  taskController.text.length > 1
+                                      ? isarService.addTask(Task()
+                                        ..isComplete = false
+                                        ..taskFor = taskFor
+                                        ..title = taskController.text
+                                        ..taskType = "dt")
+                                      : null;
+                                  taskController.clear();
+                                  Navigator.pop(context);
+                                  taskFor = FormateDateTime.onlyDate(
+                                      dateTime: DateTime.now());
+                                },
+                                child: const Text("Add"))
                           ],
                         )
                       ],

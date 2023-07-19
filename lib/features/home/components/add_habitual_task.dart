@@ -39,28 +39,8 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                               "Add Habitual Task",
                               style: TextStyle(fontSize: 20),
                             ),
-                            // TextButton.icon(
-                            //   onPressed: () {},
-                            //   icon: Icon(Icons.calendar_month),
-                            //   label: Text(FormateDateTime.d2sWithoutHM(
-                            //       dateTime: taskFor)),
-                            // ),
                           ],
                         ),
-                        // SizedBox(
-                        //   height: 50,
-                        //   width: 300,
-                        //   child: CupertinoDatePicker(
-                        //     mode: CupertinoDatePickerMode.date,
-                        //     dateOrder: DatePickerDateOrder.ymd,
-                        //     initialDateTime: DateTime.now(),
-                        //     onDateTimeChanged: (value) {
-                        //       setState(() {
-                        //         taskFor = value;
-                        //       });
-                        //     },
-                        //   ),
-                        // ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -69,17 +49,20 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                           textCapitalization: TextCapitalization.sentences,
                           textInputType: TextInputType.text,
                           hintText: "Enter your task",
-                          onChanged: (value) {
-                            if (value.isEmpty) {
-                              setState(() {
-                                isEmpty = true;
-                              });
-                            } else {
-                              setState(() {
-                                isEmpty = false;
-                              });
-                            }
+                          onSubmitted: (_) {
+                            taskController.text.length > 1
+                                ? isarService.addTask(Task()
+                                  ..isComplete = false
+                                  ..taskFor = taskFor
+                                  ..title = taskController.text
+                                  ..taskType = "ht")
+                                : null;
+                            taskController.clear();
+                            Navigator.pop(context);
+                            taskFor = FormateDateTime.onlyDate(
+                                dateTime: DateTime.now());
                           },
+                          autoFocus: true,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -97,11 +80,13 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                               maintainState: true,
                               child: FilledButton(
                                   onPressed: () {
-                                    isarService.addTask(Task()
-                                      ..isComplete = false
-                                      ..taskFor = taskFor
-                                      ..title = taskController.text
-                                      ..taskType = "ht");
+                                    taskController.text.length > 1
+                                        ? isarService.addTask(Task()
+                                          ..isComplete = false
+                                          ..taskFor = taskFor
+                                          ..title = taskController.text
+                                          ..taskType = "ht")
+                                        : null;
                                     taskController.clear();
                                     Navigator.pop(context);
                                     taskFor = FormateDateTime.onlyDate(
