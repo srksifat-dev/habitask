@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 200,
                               width: 30,
                               color: Theme.of(context).colorScheme.background,
-                              child: Column(
+                              child: const Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
