@@ -92,47 +92,97 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
 
                   return snapshot.hasData
-                      ? HeatMap(
-                          colorsets:
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? const {
-                                      1: Color.fromARGB(20, 57, 211, 83),
-                                      2: Color.fromARGB(40, 57, 211, 83),
-                                      3: Color.fromARGB(60, 57, 211, 83),
-                                      4: Color.fromARGB(80, 57, 211, 83),
-                                      5: Color.fromARGB(100, 57, 211, 83),
-                                      6: Color.fromARGB(120, 57, 211, 83),
-                                      7: Color.fromARGB(150, 57, 211, 83),
-                                      8: Color.fromARGB(180, 57, 211, 83),
-                                      9: Color.fromARGB(220, 57, 211, 83),
-                                      10: Color.fromARGB(255, 57, 211, 83),
-                                    }
-                                  : const {
-                                      1: Color.fromARGB(20, 33, 110, 57),
-                                      2: Color.fromARGB(40, 33, 110, 57),
-                                      3: Color.fromARGB(60, 33, 110, 57),
-                                      4: Color.fromARGB(80, 33, 110, 57),
-                                      5: Color.fromARGB(100, 33, 110, 57),
-                                      6: Color.fromARGB(120, 33, 110, 57),
-                                      7: Color.fromARGB(150, 33, 110, 57),
-                                      8: Color.fromARGB(180, 33, 110, 57),
-                                      9: Color.fromARGB(220, 33, 110, 57),
-                                      10: Color.fromARGB(255, 33, 110, 57),
-                                    },
-                          showColorTip: false,
-                          colorMode: ColorMode.color,
-                          textColor: Theme.of(context).colorScheme.onBackground,
-                          datasets: resultList,
-                          defaultColor:
-                              Theme.of(context).colorScheme.surfaceVariant,
-                          onClick: (value) {
-                            setState(() {
-                              appBarDate =
-                                  FormateDateTime.d2sWithoutHM(dateTime: value);
-                            });
-                          },
-                          scrollable: true,
-                          size: 24,
+                      ? Stack(
+                          alignment: Alignment.bottomLeft,
+                          children: [
+                            SizedBox(
+                              height: 225,
+                              child: HeatMap(
+                                colorsets: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const {
+                                        1: Color.fromARGB(20, 57, 211, 83),
+                                        2: Color.fromARGB(40, 57, 211, 83),
+                                        3: Color.fromARGB(60, 57, 211, 83),
+                                        4: Color.fromARGB(80, 57, 211, 83),
+                                        5: Color.fromARGB(100, 57, 211, 83),
+                                        6: Color.fromARGB(120, 57, 211, 83),
+                                        7: Color.fromARGB(150, 57, 211, 83),
+                                        8: Color.fromARGB(180, 57, 211, 83),
+                                        9: Color.fromARGB(220, 57, 211, 83),
+                                        10: Color.fromARGB(255, 57, 211, 83),
+                                      }
+                                    : const {
+                                        1: Color.fromARGB(20, 33, 110, 57),
+                                        2: Color.fromARGB(40, 33, 110, 57),
+                                        3: Color.fromARGB(60, 33, 110, 57),
+                                        4: Color.fromARGB(80, 33, 110, 57),
+                                        5: Color.fromARGB(100, 33, 110, 57),
+                                        6: Color.fromARGB(120, 33, 110, 57),
+                                        7: Color.fromARGB(150, 33, 110, 57),
+                                        8: Color.fromARGB(180, 33, 110, 57),
+                                        9: Color.fromARGB(220, 33, 110, 57),
+                                        10: Color.fromARGB(255, 33, 110, 57),
+                                      },
+                                showColorTip: false,
+                                colorMode: ColorMode.color,
+                                textColor:
+                                    Theme.of(context).colorScheme.onBackground,
+                                datasets: resultList,
+                                defaultColor: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceVariant,
+                                onClick: (value) {
+                                  setState(() {
+                                    appBarDate = FormateDateTime.d2sWithoutHM(
+                                        dateTime: value);
+                                  });
+                                },
+                                scrollable: true,
+                                size: 24,
+                              ),
+                            ),
+                            Container(
+                              height: 200,
+                              width: 30,
+                              color: Theme.of(context).colorScheme.background,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Sun",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    "Mon",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    "Tue",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    "Wed",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    "Thu",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    "Fri",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text(
+                                    "Sat",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         )
                       : HeatMap(
                           colorsets:
@@ -164,6 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           colorMode: ColorMode.color,
                           showColorTip: false,
                           textColor: Theme.of(context).colorScheme.onBackground,
+                          startDate: DateTime.now(),
                           datasets: const {},
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
