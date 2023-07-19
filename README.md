@@ -22,11 +22,15 @@ The ultimate todo/habit-building application. It helps to focus on the work that
 ## Screenshots
 
 Task Screen
-![App Screenshot](https://github.com/srksifat-dev/public_assets/raw/main/Screenshot_20230719_224028.jpg)
+
+<img src="https://github.com/srksifat-dev/public_assets/raw/main/Screenshot_20230719_224028.jpg" alt="alt text" height="500"/>
 
 Add Daily Task
-![App Screenshot](https://github.com/srksifat-dev/public_assets/raw/main/Screenshot_20230719_224101.jpg)
+
+<img src="https://github.com/srksifat-dev/public_assets/raw/main/Screenshot_20230719_224101.jpg" alt="alt text" height="500"/>
 
 Add Habitual Task
-![App Screenshot](https://github.com/srksifat-dev/public_assets/raw/main/Screenshot_20230719_224109.jpg)
+
+<img src="https://github.com/srksifat-dev/public_assets/raw/main/Screenshot_20230719_224109.jpg" alt="alt text" height="500"/>
+
 
