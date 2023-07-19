@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Task> allTasks = [];
   List<Task> completedTasks = [];
-  int percent = 0;
+  double percent = 0;
 
   bool isFabVisible = true;
 
@@ -164,8 +164,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           colorMode: ColorMode.color,
                           showColorTip: false,
                           textColor: Theme.of(context).colorScheme.onBackground,
-                          startDate:
-                              DateTime.parse(GetStorage().read("firstDay")),
                           datasets: const {},
                           defaultColor:
                               Theme.of(context).colorScheme.surfaceVariant,
@@ -188,55 +186,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   width: 16,
                 ),
-                Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Container(
-                      height: 5,
-                      width: MediaQuery.of(context).size.width * 0.65,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceVariant,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    StreamBuilder(
-                        stream: isarService.taskStream(
-                            FormateDateTime.onlyDate(dateTime: DateTime.now())),
-                        builder: (context, snapshot) {
-                          allTasks = snapshot.hasData ? snapshot.data! : [];
-                          completedTasks = snapshot.hasData
-                              ? allTasks
-                                  .where(
-                                      (element) => element.isComplete == true)
-                                  .toList()
-                              : [];
-                          percent = snapshot.hasData
-                              ? completedTasks.length * 10 ~/ allTasks.length
-                              : 0;
-                          if (snapshot.hasData) {
-                            isarService.updateTaskData(
-                                FormateDateTime.onlyDate(
-                                    dateTime: DateTime.now()),
-                                percent);
-                          }
-                          return snapshot.hasData
-                              ? Container(
-                                  height: 5,
-                                  width: ((MediaQuery.of(context).size.width *
-                                              0.65) *
-                                          percent) /
-                                      10,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                )
-                              : Container();
-                        }),
-                  ],
-                )
+                StreamBuilder(
+                    stream: isarService.taskStream(
+                        FormateDateTime.onlyDate(dateTime: DateTime.now())),
+                    builder: (context, snapshot) {
+                      allTasks = snapshot.hasData ? snapshot.data! : [];
+                      completedTasks = snapshot.hasData
+                          ? allTasks
+                              .where(
+                                  (element) => element.isComplete == true)
+                              .toList()
+                          : [];
+                      percent = snapshot.hasData
+                          ? (completedTasks.length * 10) / allTasks.length
+                          : 0.0;
+                      if (snapshot.hasData) {
+                        isarService.updateTaskData(
+                            FormateDateTime.onlyDate(
+                                dateTime: DateTime.now()),
+                            percent.toInt());
+                      }
+                      return snapshot.hasData
+                          ? Expanded(
+                            child: LinearProgressIndicator(
+                              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                              color: Theme.of(context).colorScheme.onBackground,
+                              value: percent,
+                            ),
+                          )
+                          : Container();
+                    })
               ],
             ),
             const SizedBox(
