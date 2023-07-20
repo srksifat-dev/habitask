@@ -25,7 +25,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
       maintainState: true,
       visible: widget.isVisible,
       child: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: () {
           showDialog(
               context: context,
@@ -121,7 +121,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
         child: Icon(
           Icons.done,
           size: 40,
-          color: Theme.of(context).colorScheme.onSecondary,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
     );

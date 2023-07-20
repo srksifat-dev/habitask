@@ -351,10 +351,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: task.taskType == "dt"
                                           ? Theme.of(context)
                                               .colorScheme
-                                              .secondary
+                                              .primary
                                           : Theme.of(context)
                                               .colorScheme
-                                              .surfaceVariant,
+                                              .tertiary,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(16)),
@@ -362,19 +362,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                         checkColor: task.taskType == "dt"
                                             ? Theme.of(context)
                                                 .colorScheme
-                                                .secondary
+                                                .primary
                                             : Theme.of(context)
                                                 .colorScheme
-                                                .surfaceVariant,
+                                                .tertiary,
                                         fillColor: task.taskType == "dt"
                                             ? MaterialStatePropertyAll(
                                                 Theme.of(context)
                                                     .colorScheme
-                                                    .onSecondary)
+                                                    .onPrimary)
                                             : MaterialStatePropertyAll(
                                                 Theme.of(context)
                                                     .colorScheme
-                                                    .onSurfaceVariant),
+                                                    .onTertiary),
                                         value: task.isComplete,
                                         onChanged: (value) async {
                                           await isarService.editTaskStatus(
@@ -390,10 +390,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color: task.taskType == "dt"
                                                 ? Theme.of(context)
                                                     .colorScheme
-                                                    .onSecondary
+                                                    .onPrimary
                                                 : Theme.of(context)
                                                     .colorScheme
-                                                    .onSurfaceVariant,
+                                                    .onTertiary,
                                             decoration: task.isComplete
                                                 ? TextDecoration.lineThrough
                                                 : TextDecoration.none,
@@ -401,10 +401,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 task.taskType == "dt"
                                                     ? Theme.of(context)
                                                         .colorScheme
-                                                        .onSecondary
+                                                        .onPrimary
                                                     : Theme.of(context)
                                                         .colorScheme
-                                                        .onSurfaceVariant,
+                                                        .onTertiary,
                                           ),
                                         ),
                                       ),

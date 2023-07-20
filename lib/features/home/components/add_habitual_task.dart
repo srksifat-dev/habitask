@@ -24,7 +24,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
       maintainState: true,
       visible: widget.isVisible,
       child: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
         onPressed: () {
           showDialog(
               context: context,
@@ -100,16 +100,18 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                     ),
                   ));
         },
-        child: const Stack(
+        child: Stack(
           alignment: Alignment.center,
           children: [
             Icon(
               Icons.autorenew,
               size: 40,
+              color: Theme.of(context).colorScheme.onTertiary,
             ),
             Icon(
               Icons.done,
               size: 15,
+              color: Theme.of(context).colorScheme.onTertiary,
             )
           ],
         ),
