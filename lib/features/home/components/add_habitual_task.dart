@@ -24,7 +24,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
       maintainState: true,
       visible: widget.isVisible,
       child: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         onPressed: () {
           showDialog(
               context: context,
@@ -79,6 +79,13 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                               maintainAnimation: true,
                               maintainState: true,
                               child: FilledButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                      Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
+                                    ),
+                                  ),
                                   onPressed: () {
                                     taskController.text.length > 1
                                         ? isarService.addTask(Task()
@@ -92,7 +99,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                                     taskFor = FormateDateTime.onlyDate(
                                         dateTime: DateTime.now());
                                   },
-                                  child: const Text("Add")),
+                                  child: Text("Add",style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),)),
                             )
                           ],
                         )
@@ -106,12 +113,12 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
             Icon(
               Icons.autorenew,
               size: 40,
-              color: Theme.of(context).colorScheme.onTertiary,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
             ),
             Icon(
               Icons.done,
               size: 15,
-              color: Theme.of(context).colorScheme.onTertiary,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
             )
           ],
         ),

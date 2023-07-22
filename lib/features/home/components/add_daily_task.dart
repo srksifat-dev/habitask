@@ -25,7 +25,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
       maintainState: true,
       visible: widget.isVisible,
       child: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         onPressed: () {
           showDialog(
               context: context,
@@ -36,15 +36,24 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               "Add Daily Task",
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
                             TextButton.icon(
                               onPressed: () {},
-                              icon: const Icon(Icons.calendar_month),
-                              label: Text(FormateDateTime.d2sWithoutHM(
-                                  dateTime: taskFor)),
+                              icon: Icon(
+                                Icons.calendar_month,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              label: Text(
+                                FormateDateTime.d2sWithoutHM(dateTime: taskFor),
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -98,20 +107,35 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                 },
                                 child: const Text("Cancel")),
                             FilledButton(
-                                onPressed: () {
-                                  taskController.text.length > 1
-                                      ? isarService.addTask(Task()
-                                        ..isComplete = false
-                                        ..taskFor = taskFor
-                                        ..title = taskController.text
-                                        ..taskType = "dt")
-                                      : null;
-                                  taskController.clear();
-                                  Navigator.pop(context);
-                                  taskFor = FormateDateTime.onlyDate(
-                                      dateTime: DateTime.now());
-                                },
-                                child: const Text("Add"))
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                ),
+                              ),
+                              onPressed: () {
+                                taskController.text.length > 1
+                                    ? isarService.addTask(Task()
+                                      ..isComplete = false
+                                      ..taskFor = taskFor
+                                      ..title = taskController.text
+                                      ..taskType = "dt")
+                                    : null;
+                                taskController.clear();
+                                Navigator.pop(context);
+                                taskFor = FormateDateTime.onlyDate(
+                                    dateTime: DateTime.now());
+                              },
+                              child: Text(
+                                "Add",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                ),
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -121,7 +145,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
         child: Icon(
           Icons.done,
           size: 40,
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
       ),
     );
