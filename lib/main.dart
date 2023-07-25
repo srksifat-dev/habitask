@@ -1,9 +1,8 @@
-
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:to_be_done/router/router.dart';
 import 'package:to_be_done/service/isar_service.dart';
-import 'package:to_be_done/theme/app_colors.dart';
 import 'package:to_be_done/theme/app_theme.dart';
 
 import 'common/formate_dateTime.dart';
@@ -40,6 +39,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    return DynamicColorBuilder(
+      builder: (lightColorScheme,darkColorScheme) {
         return MaterialApp.router(
           theme: ThemeData(
             colorScheme: lightColorScheme,
@@ -53,11 +54,12 @@ class _MyAppState extends State<MyApp> {
             textTheme: textTheme,
             appBarTheme: appBarTheme,
           ),
+          themeMode: ThemeMode.system,
           routeInformationParser: AppRouter().goRouter.routeInformationParser,
-          routeInformationProvider:
-              AppRouter().goRouter.routeInformationProvider,
+          routeInformationProvider: AppRouter().goRouter.routeInformationProvider,
           routerDelegate: AppRouter().goRouter.routerDelegate,
-        
+        );
+      }
     );
   }
 }

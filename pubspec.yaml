@@ -43,6 +43,7 @@ dependencies:
   date_format: ^2.0.7
   flutter_slidable: ^3.0.0
   get_storage: ^2.1.1
+  dynamic_color: ^1.6.6
   
 
 dev_dependencies:

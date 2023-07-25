@@ -24,7 +24,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
       maintainState: true,
       visible: widget.isVisible,
       child: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
         onPressed: () {
           showDialog(
               context: context,
@@ -81,9 +81,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                               child: FilledButton(
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
-                                      Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
+                                      Theme.of(context).colorScheme.tertiaryContainer,
                                     ),
                                   ),
                                   onPressed: () {
@@ -99,7 +97,13 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                                     taskFor = FormateDateTime.onlyDate(
                                         dateTime: DateTime.now());
                                   },
-                                  child: Text("Add",style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),)),
+                                  child: Text(
+                                    "Add",
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onTertiaryContainer),
+                                  )),
                             )
                           ],
                         )
@@ -113,12 +117,12 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
             Icon(
               Icons.autorenew,
               size: 40,
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              color: Theme.of(context).colorScheme.onTertiaryContainer,
             ),
             Icon(
               Icons.done,
               size: 15,
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              color: Theme.of(context).colorScheme.onTertiaryContainer,
             )
           ],
         ),
