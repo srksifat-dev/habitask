@@ -9,6 +9,8 @@ import 'package:to_be_done/features/home/components/add_habitual_task.dart';
 import 'package:to_be_done/features/home/components/edit_task.dart';
 import 'package:to_be_done/models/task_data.dart';
 import 'package:to_be_done/service/isar_service.dart';
+import 'package:to_be_done/theme/app_colors.dart';
+import 'package:to_be_done/theme/app_theme.dart';
 
 import '../../../models/task.dart';
 
@@ -44,7 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
     GetStorage().write("installed", 1);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("2BDone"),
+        title: Text(
+          "2BDone",
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onBackground, fontSize: 25),
+        ),
+        foregroundColor: Theme.of(context).colorScheme.onBackground,
         centerTitle: true,
         actions: [
           Padding(
@@ -233,7 +240,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Row(
               children: [
-                const Text("All Tasks"),
+                const Text(
+                  "All Tasks",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(
                   width: 16,
                 ),
@@ -264,8 +274,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 backgroundColor: Theme.of(context)
                                     .colorScheme
                                     .surfaceVariant,
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
                                 value: percentForIndicator,
                               ),
                             )

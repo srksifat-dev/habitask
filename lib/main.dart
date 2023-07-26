@@ -41,23 +41,20 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-          theme: ThemeData(
-            colorScheme: lightColorScheme,
-            useMaterial3: true,
-            textTheme: textTheme,
-            appBarTheme: appBarTheme,
-          ),
-          darkTheme: ThemeData(
-            colorScheme: darkColorScheme,
-            useMaterial3: true,
-            textTheme: textTheme,
-            appBarTheme: appBarTheme,
-          ),
-          themeMode: ThemeMode.system,
-          routeInformationParser: AppRouter().goRouter.routeInformationParser,
-          routeInformationProvider: AppRouter().goRouter.routeInformationProvider,
-          routerDelegate: AppRouter().goRouter.routerDelegate,
-        );
-    
+      theme: ThemeData(
+        colorScheme: lightColorScheme,
+        useMaterial3: true,
+        textTheme: textTheme,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: darkColorScheme,
+        useMaterial3: true,
+        textTheme: textTheme,
+      ),
+      themeMode: ThemeMode.system,
+      routeInformationParser: AppRouter().goRouter.routeInformationParser,
+      routeInformationProvider: AppRouter().goRouter.routeInformationProvider,
+      routerDelegate: AppRouter().goRouter.routerDelegate,
+    );
   }
 }
