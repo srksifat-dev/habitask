@@ -24,7 +24,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
       maintainState: true,
       visible: widget.isVisible,
       child: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         onPressed: () {
           showDialog(
               context: context,
@@ -81,7 +81,9 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                               child: FilledButton(
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
-                                      Theme.of(context).colorScheme.tertiaryContainer,
+                                      Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
                                     ),
                                   ),
                                   onPressed: () {
@@ -102,7 +104,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onTertiaryContainer),
+                                            .onSecondaryContainer),
                                   )),
                             )
                           ],
@@ -117,12 +119,12 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
             Icon(
               Icons.autorenew,
               size: 40,
-              color: Theme.of(context).colorScheme.onTertiaryContainer,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
             ),
             Icon(
               Icons.done,
               size: 15,
-              color: Theme.of(context).colorScheme.onTertiaryContainer,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
             )
           ],
         ),

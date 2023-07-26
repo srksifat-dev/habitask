@@ -25,7 +25,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
       maintainState: true,
       visible: widget.isVisible,
       child: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         onPressed: () {
           showDialog(
               context: context,
@@ -46,12 +46,12 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                               onPressed: () {},
                               icon: Icon(
                                 Icons.calendar_month,
-                                color: Theme.of(context).colorScheme.primary,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                               label: Text(
                                 FormateDateTime.d2sWithoutHM(dateTime: taskFor),
                                 style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
                             ),
@@ -111,7 +111,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                 backgroundColor: MaterialStatePropertyAll(
                                   Theme.of(context)
                                       .colorScheme
-                                      .primaryContainer,
+                                      .secondaryContainer,
                                 ),
                               ),
                               onPressed: () {
@@ -132,7 +132,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .onPrimaryContainer,
+                                      .onSecondaryContainer,
                                 ),
                               ),
                             ),
@@ -145,7 +145,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
         child: Icon(
           Icons.done,
           size: 40,
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).colorScheme.onSecondary,
         ),
       ),
     );

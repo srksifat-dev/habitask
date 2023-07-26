@@ -351,10 +351,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: task.taskType == "dt"
                                           ? Theme.of(context)
                                               .colorScheme
-                                              .primary
+                                              .secondary
                                           : Theme.of(context)
                                               .colorScheme
-                                              .tertiaryContainer,
+                                              .secondaryContainer,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(16)),
@@ -362,19 +362,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                         checkColor: task.taskType == "dt"
                                             ? Theme.of(context)
                                                 .colorScheme
-                                                .primary
+                                                .secondary
                                             : Theme.of(context)
                                                 .colorScheme
-                                                .tertiaryContainer,
+                                                .secondaryContainer,
                                         fillColor: task.taskType == "dt"
                                             ? MaterialStatePropertyAll(
                                                 Theme.of(context)
                                                     .colorScheme
-                                                    .onPrimary)
+                                                    .onSecondary)
                                             : MaterialStatePropertyAll(
                                                 Theme.of(context)
                                                     .colorScheme
-                                                    .onTertiaryContainer),
+                                                    .onSecondaryContainer),
                                         value: task.isComplete,
                                         onChanged: (value) async {
                                           await isarService.editTaskStatus(
@@ -390,10 +390,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color: task.taskType == "dt"
                                                 ? Theme.of(context)
                                                     .colorScheme
-                                                    .onPrimary
+                                                    .onSecondary
                                                 : Theme.of(context)
                                                     .colorScheme
-                                                    .onTertiaryContainer,
+                                                    .onSecondaryContainer,
                                             decoration: task.isComplete
                                                 ? TextDecoration.lineThrough
                                                 : TextDecoration.none,
@@ -401,10 +401,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 task.taskType == "dt"
                                                     ? Theme.of(context)
                                                         .colorScheme
-                                                        .onPrimary
+                                                        .onSecondary
                                                     : Theme.of(context)
                                                         .colorScheme
-                                                        .onTertiaryContainer,
+                                                        .onSecondaryContainer,
                                           ),
                                         ),
                                       ),
