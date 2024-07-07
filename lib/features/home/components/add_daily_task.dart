@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:to_be_done/service/isar_service.dart';
 
 import '../../../common/app_textfield.dart';
-import '../../../common/formate_dateTime.dart';
+import '../../../common/formate_date_time.dart';
 import '../../../models/task.dart';
 
 class AddDailyTask extends StatefulWidget {
-  AddDailyTask({required this.isVisible, Key? key}) : super(key: key);
+  AddDailyTask({required this.isVisible, super.key});
   bool isVisible;
   @override
   _AddDailyTaskState createState() => _AddDailyTaskState();

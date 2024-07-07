@@ -3,19 +3,17 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:to_be_done/common/formate_dateTime.dart';
+import 'package:to_be_done/common/formate_date_time.dart';
 import 'package:to_be_done/features/home/components/add_daily_task.dart';
 import 'package:to_be_done/features/home/components/add_habitual_task.dart';
 import 'package:to_be_done/features/home/components/edit_task.dart';
 import 'package:to_be_done/models/task_data.dart';
 import 'package:to_be_done/service/isar_service.dart';
-import 'package:to_be_done/theme/app_colors.dart';
-import 'package:to_be_done/theme/app_theme.dart';
 
 import '../../../models/task.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -137,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 showColorTip: false,
                                 colorMode: ColorMode.color,
                                 textColor:
-                                    Theme.of(context).colorScheme.onBackground,
+                                    Theme.of(context).colorScheme.onSurface,
                                 datasets: resultList,
                                 defaultColor: Theme.of(context)
                                     .colorScheme
@@ -361,6 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ]),
                                     child: Card(
+                                      clipBehavior: Clip.antiAlias,
                                       color: task.taskType == "dt"
                                           ? Theme.of(context)
                                               .colorScheme
@@ -379,16 +378,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .secondaryContainer,
-                                        fillColor: task.taskType == "dt"
+                                        fillColor: task.taskType == "dt" &&
+                                                !task.isComplete
                                             ? WidgetStatePropertyAll(
                                                 Theme.of(context)
                                                     .colorScheme
-                                                    .onSecondary)
-                                            : WidgetStatePropertyAll(
-                                                Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryContainer),
+                                                    .onSecondaryContainer)
+                                            : task.taskType == "dt" &&
+                                                    task.isComplete
+                                                ? WidgetStatePropertyAll(
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .secondaryContainer)
+                                                : task.taskType == "ht" &&
+                                                        task.isComplete
+                                                    ? WidgetStatePropertyAll(
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .onSecondaryContainer)
+                                                    : WidgetStatePropertyAll(
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .secondaryContainer),
                                         value: task.isComplete,
+                                        side: BorderSide(
+                                          color: task.taskType == "dt"
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .secondaryContainer
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                        ),
+                                        checkboxShape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
                                         onChanged: (value) async {
                                           await isarService.editTaskStatus(
                                               task.id, value!);

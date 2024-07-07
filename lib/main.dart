@@ -1,4 +1,3 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:to_be_done/router/router.dart';
@@ -6,7 +5,7 @@ import 'package:to_be_done/service/isar_service.dart';
 import 'package:to_be_done/theme/app_colors.dart';
 import 'package:to_be_done/theme/app_theme.dart';
 
-import 'common/formate_dateTime.dart';
+import 'common/formate_date_time.dart';
 import 'models/task.dart';
 
 int? installed;
