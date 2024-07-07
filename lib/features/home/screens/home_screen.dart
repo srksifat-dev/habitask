@@ -47,11 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "2BDone",
+          "HABITASK",
           style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground, fontSize: 25),
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 24,
+            letterSpacing: 2,
+          ),
         ),
-        foregroundColor: Theme.of(context).colorScheme.onBackground,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         centerTitle: true,
         actions: [
           Padding(
@@ -138,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 datasets: resultList,
                                 defaultColor: Theme.of(context)
                                     .colorScheme
-                                    .surfaceVariant,
+                                    .surfaceContainerHighest,
                                 onClick: (value) {
                                   setState(() {
                                     appBarDate = FormateDateTime.d2sWithoutHM(
@@ -152,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Container(
                               height: 200,
                               width: 30,
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context).colorScheme.surface,
                               child: const Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -220,11 +223,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                           colorMode: ColorMode.color,
                           showColorTip: false,
-                          textColor: Theme.of(context).colorScheme.onBackground,
+                          textColor: Theme.of(context).colorScheme.onSurface,
                           startDate: DateTime.now(),
                           datasets: const {},
-                          defaultColor:
-                              Theme.of(context).colorScheme.surfaceVariant,
+                          defaultColor: Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest,
                           onClick: (value) {
                             setState(() {
                               appBarDate =
@@ -273,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: LinearProgressIndicator(
                                 backgroundColor: Theme.of(context)
                                     .colorScheme
-                                    .surfaceVariant,
+                                    .surfaceContainerHighest,
                                 color: Theme.of(context)
                                     .colorScheme
                                     .onSurfaceVariant,
@@ -332,9 +336,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             },
                                             backgroundColor: Theme.of(context)
                                                 .colorScheme
-                                                .onBackground,
+                                                .onSurface,
                                             icon: Icons.edit,
-                                            label: "Edit",
                                             borderRadius:
                                                 BorderRadius.circular(16),
                                           ),
@@ -353,7 +356,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .colorScheme
                                                 .error,
                                             icon: Icons.delete,
-                                            label: "Delete",
                                             borderRadius:
                                                 BorderRadius.circular(16),
                                           ),
@@ -378,11 +380,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 .colorScheme
                                                 .secondaryContainer,
                                         fillColor: task.taskType == "dt"
-                                            ? MaterialStatePropertyAll(
+                                            ? WidgetStatePropertyAll(
                                                 Theme.of(context)
                                                     .colorScheme
                                                     .onSecondary)
-                                            : MaterialStatePropertyAll(
+                                            : WidgetStatePropertyAll(
                                                 Theme.of(context)
                                                     .colorScheme
                                                     .onSecondaryContainer),

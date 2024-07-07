@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_be_done/theme/app_colors.dart';
 
 var textTheme = const TextTheme(
   bodyLarge: TextStyle(fontSize: 25),
