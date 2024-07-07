@@ -36,7 +36,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Add Daily Task",
                               style: TextStyle(
                                 fontSize: 20,
@@ -108,7 +108,7 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                 child: const Text("Cancel")),
                             FilledButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
+                                backgroundColor: WidgetStatePropertyAll(
                                   Theme.of(context)
                                       .colorScheme
                                       .secondaryContainer,

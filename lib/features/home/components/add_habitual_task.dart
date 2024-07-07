@@ -80,7 +80,7 @@ class _AddHabitualTaskState extends State<AddHabitualTask> {
                               maintainState: true,
                               child: FilledButton(
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
+                                    backgroundColor: WidgetStatePropertyAll(
                                       Theme.of(context)
                                           .colorScheme
                                           .secondaryContainer,
