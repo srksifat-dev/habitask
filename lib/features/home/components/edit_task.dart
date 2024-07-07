@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:to_be_done/service/isar_service.dart';
 
 import '../../../common/app_textfield.dart';
-import '../../../common/formate_dateTime.dart';
+import '../../../common/formate_date_time.dart';
 import '../../../models/task.dart';
 
 class EditTask extends StatefulWidget {
-  const EditTask({required this.task, Key? key}) : super(key: key);
+  const EditTask({required this.task, super.key});
   final Task task;
 
   @override

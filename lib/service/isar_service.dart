@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:to_be_done/common/formate_dateTime.dart';
+import 'package:to_be_done/common/formate_date_time.dart';
 import 'package:to_be_done/models/task_data.dart';
 
 import '../models/task.dart';
