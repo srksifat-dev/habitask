@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:to_be_done/service/isar_service.dart';
 
-import '../../../common/app_textfield.dart';
-import '../../../common/formate_date_time.dart';
-import '../../../models/task.dart';
+import '../../../../core/common/app_textfield.dart';
+import '../../../../core/common/formate_date_time.dart';
+import '../../data/models/task.dart';
 
 class EditTask extends StatefulWidget {
   const EditTask({required this.task, super.key});
@@ -18,7 +17,6 @@ class _EditTaskState extends State<EditTask> {
   TextEditingController taskEditingController = TextEditingController();
   late DateTime taskFor;
   bool isEmpty = false;
-  IsarService isarService = IsarService();
 
   @override
   void initState() {
@@ -100,10 +98,6 @@ class _EditTaskState extends State<EditTask> {
                 maintainState: true,
                 child: FilledButton(
                     onPressed: () {
-                      isarService.editTask(
-                          id: widget.task.id,
-                          title: taskEditingController.text,
-                          dateTime: taskFor);
                       Navigator.pop(context);
                     },
                     child: const Text("Update")),

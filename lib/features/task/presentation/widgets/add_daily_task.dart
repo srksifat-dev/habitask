@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:to_be_done/service/isar_service.dart';
-
-import '../../../common/app_textfield.dart';
-import '../../../common/formate_date_time.dart';
-import '../../../models/task.dart';
+import '../../../../core/common/app_textfield.dart';
+import '../../../../core/common/formate_date_time.dart';
+import '../../data/models/task.dart';
 
 class AddDailyTask extends StatefulWidget {
   AddDailyTask({required this.isVisible, super.key});
@@ -17,7 +15,6 @@ class _AddDailyTaskState extends State<AddDailyTask> {
   TextEditingController taskController = TextEditingController();
   DateTime taskFor = FormateDateTime.onlyDate(dateTime: DateTime.now());
   bool isEmpty = false;
-  IsarService isarService = IsarService();
   @override
   Widget build(BuildContext context) {
     return Visibility(
@@ -82,17 +79,6 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                           textInputType: TextInputType.text,
                           hintText: "Enter your task",
                           onSubmitted: (_) {
-                            taskController.text.length > 1
-                                ? isarService.addTask(Task()
-                                  ..isComplete = false
-                                  ..taskFor = taskFor
-                                  ..title = taskController.text
-                                  ..taskType = "dt")
-                                : null;
-                            taskController.clear();
-                            Navigator.pop(context);
-                            taskFor = FormateDateTime.onlyDate(
-                                dateTime: DateTime.now());
                           },
                           autoFocus: true,
                         ),
@@ -115,17 +101,6 @@ class _AddDailyTaskState extends State<AddDailyTask> {
                                 ),
                               ),
                               onPressed: () {
-                                taskController.text.length > 1
-                                    ? isarService.addTask(Task()
-                                      ..isComplete = false
-                                      ..taskFor = taskFor
-                                      ..title = taskController.text
-                                      ..taskType = "dt")
-                                    : null;
-                                taskController.clear();
-                                Navigator.pop(context);
-                                taskFor = FormateDateTime.onlyDate(
-                                    dateTime: DateTime.now());
                               },
                               child: Text(
                                 "Add",

@@ -1,31 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:to_be_done/router/router.dart';
-import 'package:to_be_done/service/isar_service.dart';
-import 'package:to_be_done/theme/app_colors.dart';
-import 'package:to_be_done/theme/app_theme.dart';
+import 'config/router/router.dart';
+import 'config/theme/app_colors.dart';
+import 'config/theme/app_theme.dart';
 
-import 'common/formate_date_time.dart';
-import 'models/task.dart';
+// This was the 2bdone project
+// I want to transform the application architecture
+// I change the app name to habitask that means combination of habit building and task management app
+// I follow the clean architecture in the project
+// First I remove all the code
+// Then I'll build from scratch
+// Let's do it!
 
 int? installed;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  IsarService isarService = IsarService();
-  await GetStorage.init();
-  installed = GetStorage().read("installed");
-  if (installed == null) {
-    await isarService.addTask(Task()
-      ..isComplete = true
-      ..taskFor = FormateDateTime.onlyDate(dateTime: DateTime.now())
-      ..taskType = "dt"
-      ..title = "Welcome to your ultimate Habit building companion!");
-    await isarService.addTask(Task()
-      ..isComplete = false
-      ..taskFor = FormateDateTime.onlyDate(dateTime: DateTime.now())
-      ..taskType = "ht"
-      ..title = "Enter your first Task and get ready to do it!!");
-  }
   runApp(const MyApp());
 }
 
